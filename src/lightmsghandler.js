@@ -63,5 +63,5 @@
         }
     };
 
-    root.lMsgHandler = msgHandler;
+    root.lightMsgHandler = msgHandler;
 }).call(window);
