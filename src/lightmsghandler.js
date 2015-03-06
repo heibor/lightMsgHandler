@@ -1,6 +1,8 @@
 (function() {
     var root = this;
 
+    var DEBUG = true;
+
     var msgHandlers = {};
 
     function addMsgHandler(msg, func, pri) {
@@ -15,6 +17,18 @@
         msgHandlers[ msg ].sort( function(a, b) {
             return b.pri - a.pri;
         });
+    }
+
+    function callMsgHandler(msg, args) {
+        if ('object' == typeof msgHandlers[msg] && msgHandlers[msg]) {
+            msgHandlers[msg].forEach(function(h) {
+                try {
+                    h.func.apply(null, args);
+                } catch (e) {
+                    if (DEBUG) console.log('error in messsage handler:', e);
+                }
+            });
+        }
     }
 
     function isMsgHandlerRegistered(msg, func) {
@@ -52,13 +66,17 @@
     }
 
     var msgHandler = {
-        registerMsgHandler : function(msg, func, pri) {
+        registerMsgHandler: function(msg, func, pri) {
             if ( isMsgHandlerRegistered(msg, func) ) return;
 
             addMsgHandler(msg, func, pri);
         },
 
-        unregisterMsgHandler : function(msg, func) {
+        sendMsg: function(msg) {
+            callMsgHandler(msg, [].splice.call(arguments, 1));
+        },
+
+        unregisterMsgHandler: function(msg, func) {
             removeMsgHandler(msg, func);
         }
     };
