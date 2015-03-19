@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <style type="text/css">
+      .board {width: 100%;}
+      .box {float:left;width: 50%;}
+    </style>
+  </head>
+  <body>
+    <div class="board">
+      <div class="box">
+        <label>A<label><input id="msg-a" type="text"/><input type="button" value="Send" onclick="sendMsg('msg-from-a', $('msg-a').value);"/>
+      </div>
+      <div class="box">
+        <label>B<label><input id="msg-b" type="text"/><input type="button" value="Send" onclick="sendMsg('msg-from-b', $('msg-b').value);"/>
+      </div>
+      <div id="msg-list">
+      </div>
+    </div>
+    <script type="text/javascript" src="lightmsghandler.js"></script>
+    <script type="text/javascript">
+      function $(id) {
+        return document.getElementById(id);
+      }
+
+      function sendMsg(where, msg) {
+        lightMsgHandler.sendMsg(where, msg);
+      }
+
+      function showMsg(where, msg) {
+        var list = $('msg-list'),
+          ret = document.createElement('br'),
+          span = document.createElement('span');
+
+        span.innerHTML = where + ' says: ' + msg;
+        list.appendChild(span);
+        list.appendChild(ret);
+      }
+
+      var showMsgFromA = showMsg.bind(null, 'A');
+      var showMsgFromB = showMsg.bind(null, 'B');
+
+      lightMsgHandler.registerMsgHandler('msg-from-a', showMsgFromA);
+      lightMsgHandler.registerMsgHandler('msg-from-b', showMsgFromB);
+    </script>
+  </body>
+</html>
