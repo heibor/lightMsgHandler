@@ -33,4 +33,13 @@ Methods
     lightMsgHandler.registerMsgHandler(msg, handler, pri);
 ```
 
-This method register a function as the message handler for a message. A message can have many handlers, so you can register many different handlers for a message. These handlers will be called in the order of registry.
+This method register a function as the message handler for a message. A message can have many handlers, so you can register many different handlers for a message. These handlers will be called in the order of their privileges. If not specify the message handler’s privilege, its default value will be set to 0.
+
+```javascript
+    /**
+     * @param {String} [msg] the message name
+     */
+    lightMsgHandler.sendMsg(msg [, …]);
+``` 
+
+The method will send a message, all handlers of the message will be called in the order of their privileges. You can put other additional parameters at the end of ‘*msg*’, all parameters will be passed to its handlers.
