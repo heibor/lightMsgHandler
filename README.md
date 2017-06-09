@@ -26,11 +26,12 @@ Methods
 
 ```javascript
     /**
-     * @param {String} [msg] the message name
-     * @param {Function} [handler] the message handler
+     * @param {String} msg the message name
+     * @param {Function} handler the message handler
+     * @param {Object} [caller] this object for the message handler
      * @param {Number} [pri] the message primary level
      */
-    lightMsgHandler.registerMsgHandler(msg, handler, pri);
+    lightMsgHandler.registerMsgHandler(msg, handler, caller, pri);
 ```
 
 This method register a function as the message handler for a message. A message can have many handlers, so you can register many different handlers for a message. These handlers will be called in the order of their privileges. If not specify a handler’s privilege, its default value will be set to 0.
