@@ -5,7 +5,7 @@
 
     var msgHandlers = {};
 
-    function addMsgHandler(msg, func, pri) {
+    function addMsgHandler(msg, func, caller, pri) {
         if (!msgHandlers[msg]) msgHandlers[ msg ] = [];
 
         caller = 'object' == typeof caller ? caller : null;
@@ -66,10 +66,10 @@
     }
 
     var msgHandler = {
-        registerMsgHandler: function(msg, func, pri) {
+        registerMsgHandler: function(msg, func, caller, pri) {
             if ( isMsgHandlerRegistered(msg, func) ) return;
 
-            addMsgHandler(msg, func, pri);
+            addMsgHandler(msg, func, caller, pri);
         },
 
         sendMsg: function(msg) {
