@@ -53,4 +53,4 @@ This method will send a message, all handlers of the message will be called in t
     lightMsgHandler.unregisterMsgHandler(msg, handler);
 ```
 
-This method will remove a handler for a message. If the handler was not registered before, this method will do nothing. When you do not want to a handler to handle the message, you can call this method to remove the handler.
+This method will remove a handler for a message. If the handler was not registered before, this method will do nothing. When you do not want to a handler to handle the message, you can call this method to remove the handler. When your lifetime for your handler has gone over, you should call this method.
